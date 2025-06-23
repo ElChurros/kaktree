@@ -53,6 +53,8 @@ There are set of options that affect how `kaktree` works:
 - `kaktree_show_help` - whether to display help box on first launch of Kaktree.
 - `kaktree_tab_open_file` - whether Kaktree should open file if <kbd>Tab</kbd>
   key was pressed over it.
+- `kaktree_kitty_window_location` - argument passed to `kitty @ launch --location`, default `vsplit`
+- `kaktree_kitty_window_bias` - argument passed to `kitty @ launch --bias`, default `20`
 
 For example, to have nice folder and file icons as on the screenshot add this to
 your configuration (assuming that your font has these characters and your
