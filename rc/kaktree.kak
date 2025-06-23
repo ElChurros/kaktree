@@ -73,7 +73,7 @@ declare-option -docstring "Argument to pass to kitty @ launch --location option"
 str kaktree_kitty_window_location "vsplit"
 
 declare-option -docstring "Argument to pass to kitty @ launch --bias option" \
-int kaktree_kitty_window_bias "20"
+int kaktree_kitty_window_bias 20
 
 define-command -hidden kaktree--tab-open-file %{ evaluate-commands %sh{
     [ "$kak_opt_kaktree_tab_open_file" = "true" ] && echo nop || echo false
@@ -198,7 +198,7 @@ define-command -hidden kaktree--display %{ nop %sh{
         [ -n "${kak_opt_kaktree_size%%*%}" ] && measure="-l" || measure="-p"
         tmux split-window -f ${split} ${side} ${measure} ${kak_opt_kaktree_size%%%*} kak -c ${kak_session} -e "${kaktree_cmd}"
     elif [ "$TERM" = "xterm-kitty" ]; then
-	    	match=""
+        match=""
         if [ -n "$kak_client_env_KITTY_WINDOW_ID" ]; then
             match="--match=id:$kak_client_env_KITTY_WINDOW_ID"
         fi
@@ -206,7 +206,11 @@ define-command -hidden kaktree--display %{ nop %sh{
         if [ -n "$kak_client_env_KITTY_LISTEN_ON" ]; then
             listen="--to=$kak_client_env_KITTY_LISTEN_ON"
         fi
-        kitty @ $listen launch --no-response --type="$kak_opt_kitty_window_type" --location="$kak_opt_kaktree_kitty_window_location" --bias="$kak_opt_kaktree_kitty_window_bias"  --cwd="$PWD" $match kak -c ${kak_session} -e "${kaktree_cmd}"
+        title=""
+        if [ -n "$kak_opt_kaktreeclient" ]; then
+            title="--title=$kak_opt_kaktreeclient"
+        fi
+        kitty @ $listen launch --no-response --type="$kak_opt_kitty_window_type" --location="$kak_opt_kaktree_kitty_window_location" --bias="$kak_opt_kaktree_kitty_window_bias" $title --cwd="$PWD" $match kak -c ${kak_session} -e "${kaktree_cmd}"
     elif [ -n "${kak_opt_termcmd}" ]; then
         ( ${kak_opt_termcmd} "sh -c 'kak -c ${kak_session} -e \"${kaktree_cmd}\"'" ) > /dev/null 2>&1 < /dev/null &
     fi
