@@ -266,10 +266,10 @@ define-command -hidden kaktree--refresh %{ evaluate-commands %sh{
                        map buffer normal 'O'       ': nop<ret>'
                        map buffer normal 'a'       ': nop<ret>'
                        map buffer normal 'A'       ': nop<ret>'
-                       map buffer normal 'j'       'jx'
-                       map buffer normal 'k'       'kx'
-                       map buffer normal '<down>'  'jx'
-                       map buffer normal '<up>'    'kx'
+                       map buffer normal 'j'       'jx<a-;>'
+                       map buffer normal 'k'       'kx<a-;>'
+                       map buffer normal '<down>'  'jx<a-;>'
+                       map buffer normal '<up>'    'kx<a-;>'
                        hook buffer RawKey '<mouse:press:left:.*>' kaktree--mouse-action
                        set-option buffer tabstop 1
                    }}"
